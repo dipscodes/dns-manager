@@ -1,11 +1,10 @@
-// app.js
+import dnsRoutes from "./routes/dns";
+import express, { json } from "express";
 
-const express = require("express");
 const app = express();
-const dnsRoutes = require("./routes/dns");
 
 // Middleware to parse JSON requests
-app.use(express.json());
+app.use(json());
 
 // Routes for DNS operations
 app.use("/api/dns", dnsRoutes);
