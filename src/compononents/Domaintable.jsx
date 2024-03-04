@@ -1,10 +1,5 @@
 
-const DomainTable = () => {
-  const domains = [
-    { id: 1, name: 'example.com', type: 'A', value: '192.0.2.1' },
-    { id: 2, name: 'example.net', type: 'CNAME', value: 'example.com' },
-  ];
-
+const DomainTable = ({domains}) => {
   return (
     <div className="flex flex-col justify-center items-center w-1/2">
       <h2 className="text-xl border-2 rounded-lg p-3 my-3 max-w-fit">Domains</h2>
@@ -19,9 +14,9 @@ const DomainTable = () => {
           </tr>
         </thead>
         <tbody>
-          {domains.map(domain => (
-            <tr key={domain.id}>
-              <td>{domain.id}</td>
+          {(domains??[]).map((domain, index) => (
+            <tr key={index}>
+              <td>{index}</td>
               <td>{domain.name}</td>
               <td>{domain.type}</td>
               <td>{domain.value}</td>
