@@ -36,11 +36,11 @@ function Home() {
                   <input className="rounded-md p-1 text-black" type="text" value={domainName} onChange={(e) => setDomainName(e.currentTarget.value)}/>
                 </label>
                 <label className="p-1 mb-3">
-                  <h2 className="mb-3">Record Type:</h2>
+                  <h2 className="mb-3">Domain Type:</h2>
                   <input className="rounded-md p-1 text-black" type="text" value={domainType} onChange={(e) => setDomainType(e.currentTarget.value)}/>
                 </label>
                 <label className="p-1 mb-3">
-                  <h2 className="mb-3">Record Value:</h2>
+                  <h2 className="mb-3">Domain Value:</h2>
                   <input className="rounded-md p-1 text-black" type="text" value={domainValue} onChange={(e) => setDomainValue(e.currentTarget.value)}/>
                 </label>
                 <button

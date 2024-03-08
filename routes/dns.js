@@ -1,11 +1,15 @@
-import { addRecord, getRecords, updateRecord, deleteRecord } from "../controllers/dnsController";
+import {
+  addRecord,
+  getRecords,
+  updateRecord,
+  deleteRecord,
+} from "./dnsController";
 import { Router } from "express";
-const router = Router();
+const dnsRoutes = Router();
 
-// CRUD operations for DNS records
-router.post("/records", addRecord);
-router.get("/records", getRecords);
-router.put("/records/:id", updateRecord);
-router.delete("/records/:id", deleteRecord);
+dnsRoutes.post("/records", addRecord);
+dnsRoutes.get("/records", getRecords);
+dnsRoutes.put("/records/:id", updateRecord);
+dnsRoutes.delete("/records/:id", deleteRecord);
 
-export default router;
+export default dnsRoutes;

@@ -1,10 +1,9 @@
 import { dns } from "@google-cloud/dns";
 
-const projectId = "chita-405108";
+const projectId = "your-cloud-id";
 const zoneName = "your-zone-name";
 const dnsClient = new dns.DNS({ projectId });
 
-// Function to add a DNS record
 export async function addRecord(req, res) {
   const { domain, type, value } = req.body;
 
@@ -20,7 +19,6 @@ export async function addRecord(req, res) {
   }
 }
 
-// Function to get all DNS records
 export async function getRecords(req, res) {
   const zone = dnsClient.zone(zoneName);
 
@@ -33,7 +31,6 @@ export async function getRecords(req, res) {
   }
 }
 
-// Function to update a DNS record
 export async function updateRecord(req, res) {
   const { id } = req.params;
   const { domain, type, value } = req.body;
@@ -50,7 +47,6 @@ export async function updateRecord(req, res) {
   }
 }
 
-// Function to delete a DNS record
 export async function deleteRecord(req, res) {
   const { id } = req.params;
 
