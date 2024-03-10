@@ -37,6 +37,7 @@ const DomainTable = ({ domains, showForm, updateRecordIndex }) => {
             <th>Name</th>
             <th>Type</th>
             <th>Value</th>
+            <th>TTL</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -47,6 +48,7 @@ const DomainTable = ({ domains, showForm, updateRecordIndex }) => {
               <td>{domain.name}</td>
               <td>{domain.type}</td>
               <td>{domain.value}</td>
+              <td>{domain.ttl}</td>
               <td>
                 <button
                   className="text-lg border-2 rounded-lg p-2 mx-2 my-3 max-w-fit"

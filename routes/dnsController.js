@@ -23,7 +23,7 @@ async function addRecord(req, res) {
   });
 
   try {
-    zone.createChange({ add: newARecord });
+    zone.createChange({ add: newARecord }, (err, change, apiResponse) => {});
     res.status(200).send("Record added successfully");
   } catch (error) {
     console.error("Error adding DNS record:", error);
@@ -43,19 +43,33 @@ async function getRecords(req, res) {
 }
 
 async function updateRecord(req, res) {
-  const { type, name, data, ttl } = req.body;
+  const {
+    oldName,
+    oldType,
+    oldData,
+    oldTtl,
+    newName,
+    newType,
+    newData,
+    newTtl,
+  } = req.body;
   const zone = dnsClient.zone(zoneName);
-  const newRecord = zone.record(type, {
-    name: name,
-    data: [data],
-    ttl: ttl,
+  const oldRecord = zone.record(oldType, {
+    name: oldName,
+    data: [oldData],
+    ttl: oldTtl,
+  });
+  const newRecord = zone.record(newType, {
+    name: newName,
+    data: [newData],
+    ttl: newTtl,
   });
 
   try {
     zone.createChange(
       {
         add: newRecord,
-        delete: newRecord,
+        delete: oldRecord,
       },
       (err, change, apiResponse) => {}
     );
@@ -68,14 +82,14 @@ async function updateRecord(req, res) {
 async function deleteRecord(req, res) {
   const { type, name, data, ttl } = req.body;
   const zone = dnsClient.zone(zoneName);
-  const newRecord = zone.record(type, {
+  const oldRecord = zone.record(type, {
     name: name,
     data: [data],
     ttl: ttl,
   });
 
   try {
-    zone.createChange({ delete: newRecord });
+    zone.createChange({ delete: oldRecord }, (err, change, apiResponse) => {});
     res.status(200).send("Record deleted successfully");
   } catch (error) {
     console.error("Error adding DNS record:", error);

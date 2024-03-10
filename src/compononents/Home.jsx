@@ -10,6 +10,10 @@ function Home() {
   const [domainType, setDomainType] = useState("");
   const [domainValue, setDomainValue] = useState("");
   const [domainTTL, setDomainTTL] = useState(43200);
+  const [newDomainName, setNewDomainName] = useState("");
+  const [newDomainType, setNewDomainType] = useState("");
+  const [newDomainValue, setNewDomainValue] = useState("");
+  const [newDomainTTL, setNewDomainTTL] = useState(43200);
 
   const domains = useRef([]);
   const toggleAddForm = () => {
@@ -77,36 +81,29 @@ function Home() {
   };
   const updateDomain = async (event) => {
     event.preventDefault();
-    // const response = await fetch("http://localhost:3000/api/dns/add", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     name: domainName,
-    //     type: domainType,
-    //     data: domainValue,
-    //     ttl: domainTTL,
-    //   }),
-    // });
+    const response = await fetch("http://localhost:3000/api/dns/update", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        oldName: domains.current[updateIndex].name,
+        oldType: domains.current[updateIndex].type,
+        oldData: domains.current[updateIndex].value,
+        oldTtl: domains.current[updateIndex].ttl,
+        newName: newDomainName,
+        newType: newDomainType,
+        newData: newDomainValue,
+        newTtl: newDomainTTL,
+      }),
+    });
 
-    // if (response.ok) {
-    //   console.log("Record added successfully");
-    //   setDomainName("");
-    //   setDomainType("");
-    //   setDomainValue("");
-    //   setDomainTTL(43200);
-    //   domains.current.push({
-    //     name: domainName,
-    //     type: domainType,
-    //     value: domainValue,
-    //     ttl: domainTTL,
-    //   });
-    //   window.location.reload();
-    // } else {
-    //   console.error("Failed to add record");
-    // }
-    console.log(updateIndex);
+    if (response.ok) {
+      console.log("Record updated successfully");
+      window.location.reload();
+    } else {
+      console.error("Failed to add record");
+    }
   };
 
   const recordTypes = [
@@ -129,10 +126,10 @@ function Home() {
   const updateRecordIndex = (index) => {
     setUpdateIndex(index);
 
-    setDomainName(domains.current[index].name);
-    setDomainType(domains.current[index].type);
-    setDomainTTL(domains.current[index].ttl);
-    setDomainValue(domains.current[index].value);
+    setNewDomainName(domains.current[index].name);
+    setNewDomainType(domains.current[index].type);
+    setNewDomainTTL(domains.current[index].ttl);
+    setNewDomainValue(domains.current[index].value);
   };
 
   return (
@@ -230,16 +227,16 @@ function Home() {
                   <input
                     className="rounded-md p-1 text-black"
                     type="text"
-                    value={domainName}
-                    onChange={(e) => setDomainName(e.currentTarget.value)}
+                    value={newDomainName}
+                    onChange={(e) => setNewDomainName(e.currentTarget.value)}
                   />
                 </label>
                 <label className="p-1 mb-3">
                   <h2 className="mb-3">Record Type:</h2>
                   <select
                     className="rounded-md py-2 px-5 text-black bg-white"
-                    value={domainType}
-                    onChange={(e) => setDomainType(e.currentTarget.value)}
+                    value={newDomainType}
+                    onChange={(e) => setNewDomainType(e.currentTarget.value)}
                   >
                     <option value="">Select Type</option>
                     {recordTypes.map((type, index) => (
@@ -254,8 +251,8 @@ function Home() {
                   <input
                     className="rounded-md p-1 text-black"
                     type="text"
-                    value={domainValue}
-                    onChange={(e) => setDomainValue(e.currentTarget.value)}
+                    value={newDomainValue}
+                    onChange={(e) => setNewDomainValue(e.currentTarget.value)}
                   />
                 </label>
                 <label className="p-1 mb-3">
@@ -263,8 +260,8 @@ function Home() {
                   <input
                     className="rounded-md p-1 text-black"
                     type="number"
-                    value={domainTTL}
-                    onChange={(e) => setDomainTTL(e.currentTarget.value)}
+                    value={newDomainTTL}
+                    onChange={(e) => setNewDomainTTL(e.currentTarget.value)}
                   />
                 </label>
                 <button
