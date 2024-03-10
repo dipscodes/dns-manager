@@ -21,11 +21,13 @@ function Home() {
       listOfRecords.forEach((element) => {
         const domainName = element.name;
         const domainType = element.type;
-        const domainValue = element.name;
+        const domainValue = element.rrdatas;
+        const domainTTL = element.ttl;
         domains.current.push({
           name: domainName,
           type: domainType,
           value: domainValue,
+          ttl: domainTTL,
         });
       });
       console.log(listOfRecords);
@@ -34,7 +36,7 @@ function Home() {
   }, []);
 
   const addDomain = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
     const response = await fetch("http://localhost:3000/api/dns/add", {
       method: "POST",
       headers: {
@@ -51,13 +53,14 @@ function Home() {
     if (response.ok) {
       console.log("Record added successfully");
       setDomainName("");
-      setDomainType("")
-      setDomainValue("")
-      setDomainTTL(43200)
+      setDomainType("");
+      setDomainValue("");
+      setDomainTTL(43200);
       domains.current.push({
         name: domainName,
         type: domainType,
         value: domainValue,
+        ttl: domainTTL,
       });
       setRefresh((prev) => (prev + 1) % 2);
     } else {

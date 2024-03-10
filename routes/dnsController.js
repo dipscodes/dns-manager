@@ -24,6 +24,7 @@ async function addRecord(req, res) {
 
   try {
     zone.createChange({ add: newARecord });
+    res.status(200).send("Record added successfully");
   } catch (error) {
     console.error("Error adding DNS record:", error);
   }
@@ -58,16 +59,19 @@ async function updateRecord(req, res) {
 }
 
 async function deleteRecord(req, res) {
-  const { id } = req.params;
-
+  const { type, name, data, ttl } = req.body;
   const zone = dnsClient.zone(zoneName);
+  const newRecord = zone.record(type, {
+    name: name,
+    data: [data],
+    ttl: ttl,
+  });
 
   try {
-    await zone.deleteRecords(id);
+    zone.createChange({ delete: newRecord });
     res.status(200).send("Record deleted successfully");
   } catch (error) {
-    console.error("Error deleting record:", error);
-    res.status(500).send("Error deleting record");
+    console.error("Error adding DNS record:", error);
   }
 }
 module.exports = {
