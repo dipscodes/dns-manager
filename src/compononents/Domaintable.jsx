@@ -19,6 +19,7 @@ const DomainTable = ({ domains }) => {
   
       if (response.ok) {
         console.log("Record added successfully");
+        window.location.reload();
       } else {
         console.error("Failed to add record");
       }
@@ -33,7 +34,7 @@ const DomainTable = ({ domains }) => {
       <table className="w-full">
         <thead className="border-b-2 border-slate-950 h-[50px]">
           <tr>
-            <th>ID</th>
+            <th>#</th>
             <th>Name</th>
             <th>Type</th>
             <th>Value</th>
@@ -43,7 +44,7 @@ const DomainTable = ({ domains }) => {
         <tbody>
           {(domains ?? []).map((domain, index) => (
             <tr key={index}>
-              <td>{index}</td>
+              <td>{index+1}</td>
               <td>{domain.name}</td>
               <td>{domain.type}</td>
               <td>{domain.value}</td>

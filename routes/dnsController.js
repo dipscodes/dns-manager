@@ -43,18 +43,25 @@ async function getRecords(req, res) {
 }
 
 async function updateRecord(req, res) {
-  const { id } = req.params;
-  const { domain, type, value } = req.body;
-
+  const { type, name, data, ttl } = req.body;
   const zone = dnsClient.zone(zoneName);
-  const record = zone.record(domain, type, value);
+  const newRecord = zone.record(type, {
+    name: name,
+    data: [data],
+    ttl: ttl,
+  });
 
   try {
-    await zone.replaceRecords(id, record);
+    zone.createChange(
+      {
+        add: newRecord,
+        delete: newRecord,
+      },
+      (err, change, apiResponse) => {}
+    );
     res.status(200).send("Record updated successfully");
   } catch (error) {
-    console.error("Error updating record:", error);
-    res.status(500).send("Error updating record");
+    console.error("Error adding DNS record:", error);
   }
 }
 

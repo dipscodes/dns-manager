@@ -62,7 +62,7 @@ function Home() {
         value: domainValue,
         ttl: domainTTL,
       });
-      setRefresh((prev) => (prev + 1) % 2);
+      window.location.reload()
     } else {
       console.error("Failed to add record");
     }
