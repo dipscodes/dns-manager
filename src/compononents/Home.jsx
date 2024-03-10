@@ -141,17 +141,17 @@ function Home() {
         id="update-modal"
         className="fixed w-[600px] h-[500px] bg-zinc-800 rounded-xl border-2 -top-[1000px]"
       ></div>
-      <h1 className="m-5 text-3xl w-screen">DNS Manager</h1>
+      <h1 className="text-3xl w-screen mb-8">DNS Manager</h1>
+      <button
+        onClick={toggleAddForm}
+        className="text-xl border-2 rounded-lg p-3"
+      >
+        Add DNS Record
+      </button>
       <div className="Home bg-transparent h-full w-full text-white flex flex-row justify-evenly items-start pt-10">
         <div>
-          <button
-            onClick={toggleAddForm}
-            className="text-xl border-2 rounded-lg p-3 my-3"
-          >
-            Add DNS Record
-          </button>
           {showAddForm && (
-            <div>
+            <div className="border-r-2 py-5 pr-10">
               <form className="flex flex-col justify-center items-center">
                 <label className="p-1 mb-3">
                   <h2 className="mb-3">Domain Name:</h2>
@@ -215,12 +215,6 @@ function Home() {
         <div>
           {showUpdateForm && (
             <div>
-              <button
-                onClick={toggleAddForm}
-                className="text-xl border-2 rounded-lg p-3 my-3"
-              >
-                Update Record
-              </button>
               <form className="flex flex-col justify-center items-center">
                 <label className="p-1 mb-3">
                   <h2 className="mb-3">Domain Name:</h2>
@@ -271,7 +265,7 @@ function Home() {
                   Update Record
                 </button>
                 <button
-                  // onClick={async (event) => await addDomain(event)}
+                  onClick={showUpdateRecordForm}
                   className="text-xl border-2 rounded-lg p-3 my-3 max-w-fit"
                 >
                   Cancel

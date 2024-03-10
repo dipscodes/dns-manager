@@ -9,13 +9,7 @@ const dnsClient = new DNS({
 
 async function addRecord(req, res) {
   const { type, name, data, ttl } = req.body;
-
   const zone = dnsClient.zone(zoneName);
-  // const newARecord = zone.record("A", {
-  //   name: "vikramadityacodes.in.",
-  //   data: "198.51.100.5",
-  //   ttl: 86400,
-  // });
   const newARecord = zone.record(type, {
     name: name,
     data: data,
