@@ -8,17 +8,24 @@ const dnsClient = new DNS({
 });
 
 async function addRecord(req, res) {
-  const { domain, type, value } = req.body;
+  const { type, name, data, ttl } = req.body;
 
   const zone = dnsClient.zone(zoneName);
-  const record = zone.record(domain, type, value);
+  // const newARecord = zone.record("A", {
+  //   name: "vikramadityacodes.in.",
+  //   data: "198.51.100.5",
+  //   ttl: 86400,
+  // });
+  const newARecord = zone.record(type, {
+    name: name,
+    data: data,
+    ttl: ttl,
+  });
 
   try {
-    await zone.addRecords(record);
-    res.status(201).send("Record added successfully");
+    zone.createChange({ add: newARecord });
   } catch (error) {
-    console.error("Error adding record:", error);
-    res.status(500).send("Error adding record");
+    console.error("Error adding DNS record:", error);
   }
 }
 
