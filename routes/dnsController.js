@@ -1,10 +1,13 @@
-import { dns } from "@google-cloud/dns";
+const { DNS } = require("@google-cloud/dns");
+const projectId = "chita-405108";
+const zoneName = "zone1";
+const keyFilename = "C:\\Users\\dipsg\\Downloads\\chitra.json";
+const dnsClient = new DNS({
+  projectId,
+  keyFilename,
+});
 
-const projectId = "your-cloud-id";
-const zoneName = "your-zone-name";
-const dnsClient = new dns.DNS({ projectId });
-
-export async function addRecord(req, res) {
+async function addRecord(req, res) {
   const { domain, type, value } = req.body;
 
   const zone = dnsClient.zone(zoneName);
@@ -19,7 +22,7 @@ export async function addRecord(req, res) {
   }
 }
 
-export async function getRecords(req, res) {
+async function getRecords(req, res) {
   const zone = dnsClient.zone(zoneName);
 
   try {
@@ -31,7 +34,7 @@ export async function getRecords(req, res) {
   }
 }
 
-export async function updateRecord(req, res) {
+async function updateRecord(req, res) {
   const { id } = req.params;
   const { domain, type, value } = req.body;
 
@@ -47,7 +50,7 @@ export async function updateRecord(req, res) {
   }
 }
 
-export async function deleteRecord(req, res) {
+async function deleteRecord(req, res) {
   const { id } = req.params;
 
   const zone = dnsClient.zone(zoneName);
@@ -60,3 +63,9 @@ export async function deleteRecord(req, res) {
     res.status(500).send("Error deleting record");
   }
 }
+module.exports = {
+  addRecord,
+  getRecords,
+  updateRecord,
+  deleteRecord,
+};

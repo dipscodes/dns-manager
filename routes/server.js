@@ -1,5 +1,6 @@
-import dnsRoutes from "./dns";
-import express, { json } from "express";
+const express = require("express");
+const { json } = require("express");
+const dnsRoutes = require("./dns");
 
 const app = express();
 
