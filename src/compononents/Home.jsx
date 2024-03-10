@@ -70,7 +70,7 @@ function Home() {
       domains.current.push({
         name: domainName,
         type: domainType,
-        value: domainValue,
+        value: [domainValue],
         ttl: domainTTL,
       });
       window.location.reload();
