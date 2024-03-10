@@ -42,7 +42,6 @@ function Home() {
           ttl: domainTTL,
         });
       });
-      console.log(listOfRecords);
       setRefresh((prev) => (prev + 1) % 2);
     })();
   }, []);

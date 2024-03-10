@@ -48,7 +48,7 @@ const DomainTable = ({ domains, showForm, updateRecordIndex }) => {
               <td>{domain.name}</td>
               <td>{domain.type}</td>
               <td>
-                {domain.value.map(item => (<li className="mx-3">{item}</li>))}
+                {domain.value.map(item => (<li key={item} className="mx-3">{item}</li>))}
               </td>
               <td>{domain.ttl}</td>
               <td>
