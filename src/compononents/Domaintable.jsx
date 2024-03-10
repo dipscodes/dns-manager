@@ -1,9 +1,8 @@
-const DomainTable = ({ domains }) => {
+const DomainTable = ({ domains, showForm, updateRecordIndex }) => {
   const deleteRecord = async (event, index) => {
     event.preventDefault();
     // eslint-disable-next-line no-restricted-globals
     if (confirm("Are you sure you want to delete?")) {
-
       const response = await fetch("http://localhost:3000/api/dns/delete", {
         method: "POST",
         headers: {
@@ -16,7 +15,7 @@ const DomainTable = ({ domains }) => {
           ttl: domains[index].ttl,
         }),
       });
-  
+
       if (response.ok) {
         console.log("Record added successfully");
         window.location.reload();
@@ -44,12 +43,19 @@ const DomainTable = ({ domains }) => {
         <tbody>
           {(domains ?? []).map((domain, index) => (
             <tr key={index}>
-              <td>{index+1}</td>
+              <td>{index + 1}</td>
               <td>{domain.name}</td>
               <td>{domain.type}</td>
               <td>{domain.value}</td>
               <td>
-                <button className="text-lg border-2 rounded-lg p-2 mx-2 my-3 max-w-fit">
+                <button
+                  className="text-lg border-2 rounded-lg p-2 mx-2 my-3 max-w-fit"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    showForm();
+                    updateRecordIndex(index);
+                  }}
+                >
                   Edit
                 </button>
                 <button
