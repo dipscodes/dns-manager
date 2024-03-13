@@ -3,7 +3,7 @@ const DomainTable = ({ domains, showForm, updateRecordIndex }) => {
     event.preventDefault();
     // eslint-disable-next-line no-restricted-globals
     if (confirm("Are you sure you want to delete?")) {
-      const response = await fetch("http://localhost:3000/api/dns/delete", {
+      const response = await fetch("http://24.199.117.21:3000/api/dns/delete", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

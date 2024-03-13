@@ -27,7 +27,7 @@ function Home() {
 
   useEffect(() => {
     (async () => {
-      const response = await fetch("http://localhost:3000/api/dns/get");
+      const response = await fetch("http://24.199.117.21:3000/api/dns/get");
       const listOfRecords = await response.json();
       domains.current = [];
       listOfRecords.forEach((element) => {
@@ -48,7 +48,7 @@ function Home() {
 
   const addDomain = async (event) => {
     event.preventDefault();
-    const response = await fetch("http://localhost:3000/api/dns/add", {
+    const response = await fetch("http://24.199.117.21:3000/api/dns/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -80,7 +80,7 @@ function Home() {
   };
   const updateDomain = async (event) => {
     event.preventDefault();
-    const response = await fetch("http://localhost:3000/api/dns/update", {
+    const response = await fetch("http://24.199.117.21:3000/api/dns/update", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
